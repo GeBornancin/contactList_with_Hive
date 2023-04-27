@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
+
 import 'contact_listview.dart';
 import 'form_contact_fielder.dart';
 import 'model/user.dart';
@@ -20,39 +21,29 @@ class _HomeContactState extends State<HomeContact> {
   final idUserControl = TextEditingController();
   final nameUserControl = TextEditingController();
   final emailUserControl = TextEditingController();
+  final phoneUserControl =  TextEditingController();
 
   @override
   void dispose() {
     idUserControl.dispose();
     nameUserControl.dispose();
     emailUserControl.dispose();
+    phoneUserControl.dispose();
     Hive.close(); // fechar as boxes
     super.dispose();
   }
 
-  /* tirar depois */
-  List<UserModel> testeData() {
-    List<UserModel> users = [];
-    UserModel user = UserModel()
-      ..user_id = '1'
-      ..user_name = 'Joao'
-      ..email = 'xx@xx.com';
-    users.add(user);
-    users.add(user);
-    users.add(user);
-    users.add(user);
-
-    return users;
-  }
-
-  Future<void> addUser(String id, String name, String email) async {
+ 
+  Future<void> addUser(
+      String id, String name, String email, String phone) async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
       final user = UserModel()
         ..user_id = id
         ..user_name = name
-        ..email = email;
+        ..email = email
+        ..phone = phone;
 
       // pega a caixa aberta
       final box = UserBox.getUsers();
@@ -78,17 +69,19 @@ class _HomeContactState extends State<HomeContact> {
     idUserControl.text = user.user_id;
     nameUserControl.text = user.user_name;
     emailUserControl.text = user.email;
+    phoneUserControl.text = user.phone;
   }
 
   void _clearTextControllers() {
     idUserControl.clear();
     nameUserControl.clear();
     emailUserControl.clear();
+    phoneUserControl.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    final users = testeData();
+  
 
     return Form(
       key: _formKey,
@@ -119,6 +112,14 @@ class _HomeContactState extends State<HomeContact> {
                 hintTextName: 'Email',
               ),
               const SizedBox(height: 10),
+              FormContactFielder(
+                controller: phoneUserControl,
+                iconData: Icons.phone_outlined,
+                textInputType: TextInputType.phone,
+                hintTextName: 'Telefone',
+              ),
+              const SizedBox(height: 10),
+
               Container(
                 padding: const EdgeInsets.only(left: 40),
                 child: Row(
@@ -130,6 +131,7 @@ class _HomeContactState extends State<HomeContact> {
                           idUserControl.text,
                           nameUserControl.text,
                           emailUserControl.text,
+                          phoneUserControl.text,
                         ),
                         child: const Text('Adicionar'),
                       ),
