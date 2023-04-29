@@ -44,11 +44,11 @@ class ContactListView extends StatelessWidget {
                     },
                     icon: const Icon(
                       Icons.edit,
-                      color: Colors.amber,
+                      color: Color.fromARGB(255, 7, 255, 226),
                     ),
                     label: const Text(
                       'Editar',
-                      style: TextStyle(color: Colors.amber),
+                      style: TextStyle(color: Color.fromARGB(255, 7, 255, 226)),
                     ),
                   ),
                   TextButton.icon(
