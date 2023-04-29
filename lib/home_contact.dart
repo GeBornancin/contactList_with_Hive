@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
-
 import 'contact_listview.dart';
 import 'form_contact_fielder.dart';
 import 'model/user.dart';
@@ -21,7 +20,7 @@ class _HomeContactState extends State<HomeContact> {
   final idUserControl = TextEditingController();
   final nameUserControl = TextEditingController();
   final emailUserControl = TextEditingController();
-  final phoneUserControl =  TextEditingController();
+  final phoneUserControl = TextEditingController();
 
   @override
   void dispose() {
@@ -33,7 +32,6 @@ class _HomeContactState extends State<HomeContact> {
     super.dispose();
   }
 
- 
   Future<void> addUser(
       String id, String name, String email, String phone) async {
     if (_formKey.currentState!.validate()) {
@@ -81,7 +79,7 @@ class _HomeContactState extends State<HomeContact> {
 
   @override
   Widget build(BuildContext context) {
-  
+    
 
     return Form(
       key: _formKey,
@@ -121,7 +119,7 @@ class _HomeContactState extends State<HomeContact> {
               const SizedBox(height: 10),
 
               Container(
-                padding: const EdgeInsets.only(left: 40),
+                padding: const EdgeInsets.only(left: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -154,7 +152,7 @@ class _HomeContactState extends State<HomeContact> {
                   if (users.isEmpty) {
                     return Center(
                       child: const Text(
-                        'No Users Found',
+                        'Nenhum contato encontrado.',
                         style: const TextStyle(fontSize: 20),
                       ),
                     );
