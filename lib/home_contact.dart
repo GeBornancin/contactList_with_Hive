@@ -2,9 +2,14 @@ import 'package:contact_crud_hive/common/box_user.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+
+
 
 import 'contact_listview.dart';
 import 'form_contact_fielder.dart';
+import 'form_contact_fielder_phone.dart';
 import 'model/user.dart';
 
 class HomeContact extends StatefulWidget {
@@ -21,6 +26,17 @@ class _HomeContactState extends State<HomeContact> {
   final nameUserControl = TextEditingController();
   final emailUserControl = TextEditingController();
   final phoneUserControl = TextEditingController();
+  
+  @override
+  void initState() {
+    super.initState();
+
+    PhoneInputFormatter.replacePhoneMask(
+      countryCode: 'BR',
+      newMask: '+00 (00) 0 0000-0000'
+    );
+  }
+
 
   @override
   void dispose() {
@@ -46,20 +62,6 @@ class _HomeContactState extends State<HomeContact> {
       // pega a caixa aberta
       final box = UserBox.getUsers();
       box.add(user).then((value) => _clearTextControllers());
-
-      //final existContact = box.get(user);
-      //var users = box.values.toList().cast<UserModel>();
-      // print(users);
-      // print(user.key);
-      //var exist = users.where((element) => element.user_id == user.user_id);
-      //print(exist.isEmpty);
-
-      // existContact == null
-      //     ? box.add(user).then((value) => _clearTextControllers())
-      //     : user.save();
-
-      //Adiciona o usuario com uma chava autoincrentável
-      //box.add(user).then((value) => _clearTextControllers());
     }
   }
 
@@ -77,7 +79,7 @@ class _HomeContactState extends State<HomeContact> {
     phoneUserControl.clear();
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     
 
@@ -94,27 +96,36 @@ class _HomeContactState extends State<HomeContact> {
               FormContactFielder(
                 controller: idUserControl,
                 iconData: Icons.person,
-                hintTextName: 'Código',
+                hintTextName: 'Código', 
+                
               ),
               const SizedBox(height: 10),
               FormContactFielder(
                 controller: nameUserControl,
                 iconData: Icons.person_outline,
-                hintTextName: 'Nome',
+                hintTextName: 'Nome', 
+               
               ),
               const SizedBox(height: 10),
               FormContactFielder(
                 controller: emailUserControl,
                 iconData: Icons.email_outlined,
                 textInputType: TextInputType.emailAddress,
-                hintTextName: 'Email',
+                hintTextName: 'Email', 
+                 
               ),
               const SizedBox(height: 10),
-              FormContactFielder(
+              FormContactFielderPhone(
                 controller: phoneUserControl,
                 iconData: Icons.phone_outlined,
                 textInputType: TextInputType.phone,
-                hintTextName: 'Telefone',
+                hintTextName: 'Telefone', 
+                
+                inputFormatters:[
+                  
+                  PhoneInputFormatter()
+                ],
+            
               ),
               const SizedBox(height: 10),
 

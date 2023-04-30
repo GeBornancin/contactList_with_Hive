@@ -25,13 +25,13 @@ class ContactListView extends StatelessWidget {
         return Card(
           child: ExpansionTile(
             title: Text(
-              '${users[index].user_id} - ${users[index].email}',
+              '${users[index].user_id} - ${users[index].user_name}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 20,
               ),
             ),
-            subtitle: Text(users[index].user_name + ' - ' + users[index].phone),
+            subtitle: Text(users[index].email + ' - ' + users[index].phone),
             
             children: <Widget>[
               Row(
